@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/DeltaFQuant.iml" filepath="$PROJECT_DIR$/.idea/DeltaFQuant.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/DeltaTrader.iml" filepath="$PROJECT_DIR$/.idea/DeltaTrader.iml" />
     </modules>
   </component>
 </project>
