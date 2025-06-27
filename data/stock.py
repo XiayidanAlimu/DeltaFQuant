@@ -30,6 +30,8 @@ def get_single_price(code, time_freq, start_date, end_date):
     :param end_date:
     :return:
     '''
+    if start_date is None:
+        start_date = get_security_info(code).start_date
     df = get_price(code, start_date=start_date, end_date=end_date, frequency=time_freq, panel=False)
     return df
 
@@ -89,3 +91,14 @@ def get_single_valuation(code, date, statDate):
 def get_csv_data(code, type):
     file_root = root + type + '/' + code + '.csv'
     pd.read_csv(file_root)
+
+# 计算涨跌幅
+def calculate_change_pct(data):
+    '''
+    涨跌幅 = （当期收盘价 - 前期收盘价） / 前期收盘价
+    当天，当分钟，当秒钟，当月，当周，当年
+    :param data:
+    :return: dataframe 带有涨跌幅
+    '''
+    data['close_pct'] = (data['close'] - data['close'].shift(1)) / data['close'].shift(1)
+    return data
