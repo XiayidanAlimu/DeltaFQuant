@@ -1,7 +1,7 @@
 # 2-4 使用JQData获取行情数据
 
 from jqdatasdk import *
-import time
+import pandas as pd
 
 auth('13141244283','Xayida661108*')
 

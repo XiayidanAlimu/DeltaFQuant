@@ -1,17 +1,11 @@
 # 3-4 模拟股票交易，买入，卖出信号
 
-# 创建交易策略，生成交易信号
+
 import data.stock as st
 import numpy as np
 
+# 创建交易策略，生成交易信号
 def week_period_strategy(code, time_freq, start_date, end_date):
-    '''
-    :param code: 股票代码
-    :param time_freq:
-    :param start_date:
-    :param end_date:
-    :return:
-    '''
     data = st.get_single_price(code, time_freq, start_date, end_date)
     print(data)
     # 新建周期字段
