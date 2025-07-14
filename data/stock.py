@@ -1,3 +1,6 @@
+import datetime
+import os.path
+
 from jqdatasdk import *
 auth('13141244283','Xayida661108*')
 
@@ -21,7 +24,7 @@ def get_single_finance(code, statDate):
     df = get_fundamentals(query(indicator).filter(indicator.code == code), statDate=statDate)
     return df
 
-def get_single_price(code, time_freq, start_date, end_date):
+def get_single_price(code, time_freq, start_date=None, end_date=None):
     '''
     获取单个股票行情数据
     :param code:
@@ -32,6 +35,8 @@ def get_single_price(code, time_freq, start_date, end_date):
     '''
     if start_date is None:
         start_date = get_security_info(code).start_date
+    if end_date is None:
+        end_date = datetime.datetime.today()
     df = get_price(code, start_date=start_date, end_date=end_date, frequency=time_freq, panel=False)
     return df
 
@@ -102,3 +107,29 @@ def calculate_change_pct(data):
     '''
     data['close_pct'] = (data['close'] - data['close'].shift(1)) / data['close'].shift(1)
     return data
+
+def update_daily_price(stock_code, type):
+    # 3.1 是否存在文件：不存在则重新获取；存在则跳转步骤-> 3.2
+    file_root = root + type + '/' + stock_code + '.csv'
+    if os.path.exists(file_root):
+        # 如果存在对应文件，执行3.2
+        startDate = pd.read_csv(file_root, usecols=['date']).iloc[-1]
+        # 3.2 获取增量数据(code, start_date=对应股票csv中最新日期, end_date=今天)
+        df = get_single_price(stock_code, 'daily', startDate, datetime.datetime.today())
+        # 3.3 删除重复值
+        df.index.names = ['date']
+        df = df.drop_duplicates('date', 'last')
+        # 3.4 追加到已有文件中
+        df.to_csv(file_root, mode='a', header=False)
+    else:
+        # 重新获取该股票行情数据
+        df = get_single_price(stock_code, 'daily')
+        export_data(df, stock_code, type)
+
+def init_db():
+    # 初始化股票数据库
+    stocks = get_stock_list()
+    for code in stocks:
+        update_daily_price(code, 'price')
+
+
