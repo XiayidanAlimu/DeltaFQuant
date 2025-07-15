@@ -9,15 +9,25 @@ def compose_signal(data):
     data['signal'] = data['buy_signal'] + data['sell_signal']
     return data
 
-def calculate_profit_pct(data):
-    # 计算单次收益率：开仓，平仓（开仓的全部股数）
-    data.loc[data['signal'] != 0, 'profit_pct'] = (data['close'] - data['close'].shift(1)) / data['close'].shift(1)
-    data = data[data['signal'] == -1]
+def calculate_prof_pct(data):
+    """
+    计算单次收益率：开仓、平仓（开仓的全部股数）
+    :param data:
+    :return:
+    """
+    # 筛选信号不为0的，并且计算涨跌幅
+    data.loc[data['signal'] != 0, 'profit_pct'] = data['close'].pct_change()
+    data = data[data['signal'] == -1]  # 筛选平仓后的数据：单次收益
     return data
 
-def calculate_cum_profit(data):
-    # 计算累计收益率
-    data['cum_profit'] = pd.DataFrame((1+data['profit_pct'])).cumprod() -1
+def calculate_cum_prof(data):
+    """
+    计算累计收益率（个股收益率）
+    :param data: dataframe
+    :return:
+    """
+    # 累计收益
+    data['cum_profit'] = pd.DataFrame(1 + data['profit_pct']).cumprod() - 1
     return data
 
 def calculate_sharpe(data):

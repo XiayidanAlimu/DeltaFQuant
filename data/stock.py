@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 import os.path
 
 from jqdatasdk import *
-auth('13141244283','Xayida661108*')
+auth('18997994905','Alimu620117')
 
 import pandas as pd
 pd.set_option('display.max_rows', 100000)
@@ -36,7 +36,7 @@ def get_single_price(code, time_freq, start_date=None, end_date=None):
     if start_date is None:
         start_date = get_security_info(code).start_date
     if end_date is None:
-        end_date = datetime.datetime.today()
+        end_date = datetime.today()
     df = get_price(code, start_date=start_date, end_date=end_date, frequency=time_freq, panel=False)
     return df
 
