@@ -14,6 +14,8 @@ def ma_strategy(data, short_window=5, long_window=20):
     :return:
     """
 
+    print('当前周期参数', short_window, long_window)
+
     # 1. 计算技术指标: ma短期，ma长期
     data = pd.DataFrame(data)
     data['short_ma'] = data['close'].rolling(window=short_window).mean()
@@ -36,7 +38,7 @@ def ma_strategy(data, short_window=5, long_window=20):
     data.drop(labels=['buy_signal', 'sell_signal'], axis=1)
 
     # 5. 数据预览
-    # print(data[['close', 'short_ma', 'long_ma', 'signal', 'cum_profit']])
+    print(data[['close', 'short_ma', 'long_ma', 'signal', 'cum_profit']])
 
     return data
 

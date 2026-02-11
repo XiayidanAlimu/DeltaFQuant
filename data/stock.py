@@ -102,6 +102,18 @@ def get_single_valuation(code, date, statDate):
     df = get_fundamentals(query(valuation).filter(valuation.code == code), date=datetime)
     return df
 
+def get_index_list(index_symbol='000300.XSHG'):
+    # 指数代码查询：https://www.joinquant.com/indexData
+    """
+    获取指数成分股
+    :param index_symbol: 指数代码
+    :return:list,成分股代码
+    """
+
+    # 获取所有沪深300的股票
+    stocks = get_index_stocks(index_symbol, '2025-10-01')
+    return stocks
+
 def get_csv_data(code, type):
     file_root = root + type + '/' + code + '.csv'
     pd.read_csv(file_root)
@@ -162,3 +174,6 @@ def init_db():
         update_daily_price(code, 'price')
 
 
+if __name__ == '__main__':
+    # 5.3 获取中证A500指数成分股代码
+    print(get_index_list('000510.XSHG'))
