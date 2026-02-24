@@ -1,7 +1,12 @@
 # 2-4 使用JQData获取行情数据
+import os
 
 from jqdatasdk import *
-auth('13141244283','Xayida661108*')
+from dotenv import load_dotenv
+
+load_dotenv()
+
+auth(os.environ['USERNAME'], os.environ['PASSWORD'])
 
 # 上海证券交易所	.XSHG	600519.XSHG	贵州茅台
 # 深圳证券交易所	.XSHE	000001.XSHE	平安银行

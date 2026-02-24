@@ -1,6 +1,12 @@
+import os
+
 from jqdatasdk import *
 import pandas as pd
-auth('13141244283','Xayida661108*')
+from dotenv import load_dotenv
+
+load_dotenv()
+
+auth(os.environ['USERNAME'], os.environ['PASSWORD'])
 
 # 1. 使用 resample 函数计算平安银行（000001.XSHE）2025 年 1 月的月 K，并回答该月 K 的开盘价、收盘价、最高价、最低价分别是多少？
 

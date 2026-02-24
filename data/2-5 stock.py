@@ -1,6 +1,12 @@
+import os
+
 from jqdatasdk import *
 import pandas as pd
-auth('13141244283','Xayida661108*')
+from dotenv import load_dotenv
+
+load_dotenv()
+
+auth(os.environ['USERNAME'], os.environ['PASSWORD'])
 
 # 转换周期：日k转换为周k
 print('转换周期：日k转换为周k')

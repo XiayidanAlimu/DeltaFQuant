@@ -1,5 +1,11 @@
+import os
+
 from jqdatasdk import *
-auth('13141244283','Xayida661108*')
+from dotenv import load_dotenv
+
+load_dotenv()
+
+auth(os.environ['USERNAME'], os.environ['PASSWORD'])
 
 # 如何获取股票行情数据
 df = get_price('600519.XSHG', count=1, end_date='2025-03-18', frequency='daily')

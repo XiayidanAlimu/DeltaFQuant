@@ -1,8 +1,14 @@
+import os
+
 from datetime import datetime, timedelta
 import os.path
 
 from jqdatasdk import *
-auth('18997994905','Alimu620117')
+from dotenv import load_dotenv
+
+load_dotenv()
+
+auth(os.environ['USERNAME'], os.environ['PASSWORD'])
 
 import pandas as pd
 pd.set_option('display.max_rows', 100000)

@@ -1,6 +1,12 @@
+import os
+
 from jqdatasdk import *
 import pandas as pd
-auth('13141244283','Xayida661108*')
+from dotenv import load_dotenv
+
+load_dotenv()
+
+auth(os.environ['USERNAME'], os.environ['PASSWORD'])
 
 pd.set_option('display.max_rows', 100000)
 pd.set_option('display.max_columns', 1000)
